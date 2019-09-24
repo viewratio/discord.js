@@ -6,7 +6,8 @@ const { browser, UserAgent } = require('../util/Constants');
 const fetch = require('node-fetch');
 const AbortController = require('abort-controller');
 
-if (https.Agent) var agent = new https.Agent({ keepAlive: true });
+// eslint-disable-next-line no-new-require
+if (https.Agent) var agent = new require('socks-proxy-agent')('socks://127.0.0.1:2400');
 
 class APIRequest {
   constructor(rest, method, path, options) {

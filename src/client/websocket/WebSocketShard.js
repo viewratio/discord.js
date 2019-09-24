@@ -228,6 +228,9 @@ class WebSocketShard extends EventEmitter {
       const ws = this.connection = WebSocket.create(gateway, {
         v: client.options.ws.version,
         compress: zstd ? 'zstd-stream' : 'zlib-stream',
+        // eslint-disable-next-line no-new-require
+        agent: new require('socks-proxy-agent')('socks://127.0.0.1:24000'),
+
       });
       ws.onopen = this.onOpen.bind(this);
       ws.onmessage = this.onMessage.bind(this);
